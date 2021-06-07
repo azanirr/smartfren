@@ -11,6 +11,7 @@ function Home (props) {
     const [trigger, setTrigger] = useState(0),
           [albumReal = [], setAlbum] = useState(),
           [filtered, setFiltered] = useState(null),
+          [listDetail, setDetail] = useState([]),
           [modal, setModal] = useState({
               detailModal: false,
           });
@@ -63,10 +64,11 @@ function Home (props) {
 
     const {detailModal} = modal;
 
-    const onChangeModal = (name, value) => {
+    const onChangeModal = (name, value, list) => {
         setModal({
             [name] : value
         });
+        setDetail(list)
     };
 
     return(
@@ -96,15 +98,8 @@ function Home (props) {
                 return (
                     <div className={styles.Card} key={list.id}>
                         <img src={list.photos[0].url} alt={list.id}></img>
-                        <h3 onClick={() => onChangeModal('detailModal', true)}>{list.title}</h3>
-                        <p>{list.users.name}</p>  
-                        {detailModal ? 
-                            <Modal 
-                                open={detailModal}
-                                list={list}
-                                close={() => onChangeModal('detailModal', false)}
-                            />     
-                        : "" }                   
+                        <h3 onClick={() => onChangeModal('detailModal', true, list)}>{list.title}</h3>
+                        <p>{list.users.name}</p>                   
                     </div>
                    
                 )
@@ -113,20 +108,20 @@ function Home (props) {
                 return (
                     <div className={styles.Card} key={list.id}>
                         <img src={list.photos[0].url} alt={list.id}></img>
-                        <h3 onClick={() => onChangeModal('detailModal', true)}>{list.title}</h3>
-                        <p>{list.users.name}</p>   
-                        {detailModal ? 
-                            <Modal 
-                                open={detailModal}
-                                list={list}
-                                close={() => onChangeModal('detailModal', false)}
-                            />     
-                        : "" }                  
+                        <h3 onClick={() => onChangeModal('detailModal', true, list)}>{list.title}</h3>
+                        <p>{list.users.name}</p>                   
                     </div>
                    
                 )
             }) }
         </div>
+        {detailModal ? 
+                <Modal 
+                    open={detailModal}
+                    list={listDetail}
+                    close={() => onChangeModal('detailModal', false)}
+                />     
+        : "" } 
         </>
     )
 }
