@@ -1,0 +1,70 @@
+.Navbar{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px 50px;
+    z-index: 50;
+    background: #ffffff;
+    box-shadow:   0 6px 12px rgba(0,0,0,.1);
+}
+
+.Navbar div img{
+    height: 35px;
+    padding: 15px 0;
+    width: 110px;
+}
+
+.Navbar ul{
+    list-style-type: none;
+}
+
+.Navbar input {
+    box-sizing: border-box;
+    padding: 8px;
+    width: 400px;
+    cursor: pointer;
+}
+
+
+.Container{
+    height: 100%;
+    display: flex;
+    padding: 100px 10px 10px 10px;
+    background-color: #ccc;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.Card{
+	margin: 1%;
+    width: 18%;
+	padding: 0 0 20px 0;
+	background: white;
+	border-radius: 4px;
+    padding: 10px;
+	transition: all 0.4s ease 0s;
+}
+
+.Card:hover{
+	transition: all 0.4s ease 0s;
+	box-shadow:  7px 7px 14px #d9d9d9, 
+             -7px -7px 14px #ffffff;
+}
+.Card img {
+    width: 100%;
+    height: 150px;
+}
+.Card h3{
+    font-size: 16px;
+    margin: 0;
+}
+.Card p {
+    font-size: 12px;
+    color: #aaa;
+}
