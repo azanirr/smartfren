@@ -4,7 +4,7 @@ import { Modal } from "@material-ui/core";
 
 function ModalDetail (props) {
 
-    const { open, onClose, list } = props;
+    const { open, onClose } = props;
 
 
     return (

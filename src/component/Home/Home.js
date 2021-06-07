@@ -90,14 +90,14 @@ function Home (props) {
             albumReal.map(list => {
                 return (
                     <div className={styles.Card} key={list.id}>
-                        <img src={list.photos[0].url}></img>
+                        <img src={list.photos[0].url} alt={list.id}></img>
                         <h3 onClick={() => onChangeModal(true)}>{list.title}</h3>
                         <p>{list.users.name}</p>  
                         {modal ? 
                             <Modal 
-                            open={modal}
-                            list={list}
-                            onClose={() => onChangeModal(false)}/>     
+                                open={modal}
+                                onClose={() => onChangeModal(false)}
+                            />     
                         : ""}                   
                     </div>
                    
@@ -106,14 +106,14 @@ function Home (props) {
             filtered.map(list => {
                 return (
                     <div className={styles.Card} key={list.id}>
-                        <img src={list.photos[0].url}></img>
+                        <img src={list.photos[0].url} alt={list.id}></img>
                         <h3 onClick={() => onChangeModal(true)}>{list.title}</h3>
                         <p>{list.users.name}</p>   
                         {modal ? 
                             <Modal 
-                            open={modal}
-                            list={list}
-                            onClose={() => onChangeModal(false)}/>     
+                                open={modal}
+                                onClose={() => onChangeModal(false)}
+                            />     
                         : ""}                  
                     </div>
                    
