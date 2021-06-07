@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import styles from './Home.module.css';
 import { connect } from "react-redux";
 import Logo from '../../assets/spotifygreen.png';
-import Modal from "../Modal/Modal";
+import Modal from "../Modal/ModalDetail";
 import * as actionTypes from "../../redux/action/Action";
 
 
@@ -11,7 +11,9 @@ function Home (props) {
     const [trigger, setTrigger] = useState(0),
           [albumReal = [], setAlbum] = useState(),
           [filtered, setFiltered] = useState(null),
-          [modal, setModal] = useState(false);
+          [modal, setModal] = useState({
+              detailModal: false,
+          });
 
     const { getAlbums, getPhotos, getUsers, albums, photos, users } = props;
 
@@ -20,49 +22,52 @@ function Home (props) {
         getPhotos();
         getUsers();
         setTimeout(() => {
-            setTrigger(trigger + 1);
-        }, 1000)
+            setTrigger(1);
+        }, 2000)
     }, [getUsers, getAlbums, getPhotos])
-
-    const onChangeModal = (value) => {
-        setModal(value);
-        console.log(modal)
-      };
-    
-    const prepData = () => {
-        if (photos && albums) {
-            albums.forEach(album => {
-                album.photos = [];
-                for (let i = 0; i < photos.length; i++) {
-                    if (album.id === photos[i].albumId) {
-                        album.photos.push(photos[i])
-                    } 
-                }
-            })
-        } 
-        if (users && albums) {
-            albums.forEach(album => {
-                album.users = ""
-                for (let i = 0; i < users.length; i++) {
-                    if (album.userId === users[i].id) {
-                        album.users = users[i];
-                    } 
-                }
-            })
-        }
-        setAlbum(albums)
-    }
 
     const onChange = (e) => {
         const value = e.target.value;
         const filteredArr = albumReal.filter(filtered => filtered.title.toLowerCase().includes(value.toLowerCase()) || filtered.users.name.toLowerCase().includes(value.toLowerCase()) || filtered.users.company.name.toLowerCase().includes(value.toLowerCase()) || filtered.users.address.city.toLowerCase().includes(value.toLowerCase()) );
         setFiltered(filteredArr)
     }
+
     useEffect(() => {
         if (trigger > 0) {
-            prepData()
+            const prepData = () => {
+                if (photos && albums) {
+                    albums.forEach(album => {
+                        album.photos = [];
+                        for (let i = 0; i < photos.length; i++) {
+                            if (album.id === photos[i].albumId) {
+                                album.photos.push(photos[i])
+                            } 
+                        }
+                    })
+                } 
+                if (users && albums) {
+                    albums.forEach(album => {
+                        album.users = ""
+                        for (let i = 0; i < users.length; i++) {
+                            if (album.userId === users[i].id) {
+                                album.users = users[i];
+                            } 
+                        }
+                    })
+                }
+                setAlbum(albums)
+            }
+            prepData();
         }
-    }, [trigger, prepData])
+    }, [trigger, albums, photos, users])
+
+    const {detailModal} = modal;
+
+    const onChangeModal = (name, value) => {
+        setModal({
+            [name] : value
+        });
+    };
 
     return(
         <>
@@ -91,14 +96,15 @@ function Home (props) {
                 return (
                     <div className={styles.Card} key={list.id}>
                         <img src={list.photos[0].url} alt={list.id}></img>
-                        <h3 onClick={() => onChangeModal(true)}>{list.title}</h3>
+                        <h3 onClick={() => onChangeModal('detailModal', true)}>{list.title}</h3>
                         <p>{list.users.name}</p>  
-                        {modal ? 
+                        {detailModal ? 
                             <Modal 
-                                open={modal}
-                                onClose={() => onChangeModal(false)}
+                                open={detailModal}
+                                list={list}
+                                close={() => onChangeModal('detailModal', false)}
                             />     
-                        : ""}                   
+                        : "" }                   
                     </div>
                    
                 )
@@ -107,14 +113,15 @@ function Home (props) {
                 return (
                     <div className={styles.Card} key={list.id}>
                         <img src={list.photos[0].url} alt={list.id}></img>
-                        <h3 onClick={() => onChangeModal(true)}>{list.title}</h3>
+                        <h3 onClick={() => onChangeModal('detailModal', true)}>{list.title}</h3>
                         <p>{list.users.name}</p>   
-                        {modal ? 
+                        {detailModal ? 
                             <Modal 
-                                open={modal}
-                                onClose={() => onChangeModal(false)}
+                                open={detailModal}
+                                list={list}
+                                close={() => onChangeModal('detailModal', false)}
                             />     
-                        : ""}                  
+                        : "" }                  
                     </div>
                    
                 )

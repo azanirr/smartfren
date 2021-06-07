@@ -1,13 +1,31 @@
 .Modal {
-        display: none; /* Hidden by default */
-        position: fixed; /* Stay in place */
-        z-index: 1; /* Sit on top */
-        left: 0;
-        top: 0;
-        width: 100%; /* Full width */
-        height: 100%; /* Full height */
-        overflow: auto; /* Enable scroll if needed */
-        background-color: rgb(0,0,0); /* Fallback color */
-        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        max-height: calc(100vh - 50px);
+	overflow-y: auto;
+	position: relative;
 }
 
+
+.Detail {
+        width: 80%;
+        background: #FFFFFF;
+        border-radius: 4px;
+        position: relative;
+        margin: 47px auto;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        border: none;
+        outline: none;
+        padding: 37px;
+    }
+
+.Photo {
+        display: flex;
+        width: 100%;
+        flex-direction: row;
+        justify-content: space-between;
+}
+.Photo img{
+        width: 30%;
+        height: 300px;
+}
